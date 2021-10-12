@@ -91,7 +91,7 @@
                             const tempHtml = `<tr>
                                                 <td>${order['name']}</td>
                                                 <td>${order['count']}</td>
-                                                <td>${order['address']}}</td>
+                                                <td>${order['address']}</td>
                                                 <td>${order['phone']}</td>
                                               </tr>`;
                             $("#orders-box").append(tempHtml);
@@ -102,6 +102,19 @@
                 }
             })
         }
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function (response) {
+                    const rate = response[1]["rate"]
+                    const tempHtml = `달러-원 환율: ${rate}`
+                    $('.exchange-rate').append(tempHtml)
+                },
+            });
+        });
     </script>
 
     <style type="text/css">
@@ -119,11 +132,12 @@
         }
 
         .img {
-            background-image: url("https://img.extmovie.com/files/attach/images/150/675/145/051/e69c2f1c9a51d980337e7fe8c8eaa24d.jpg");
+            background-image: url("http://image.dongascience.com/Photo/2017/10/15093503419543[1].jpg");
             background-size: cover;
             background-position: center;
             width: 500px;
             height: 300px;
+            margin-top: 50px;
         }
 
         .info {
@@ -136,7 +150,11 @@
         }
 
         .orders {
-            margin-top: 100px;
+            margin-top: 50px;
+        }
+
+        .exchange-rate {
+            color: blue;
         }
     </style>
 </head>
@@ -144,9 +162,10 @@
 <div class="wrap">
     <div class="img"></div>
     <div class="info">
-        <h1>양초를 팝니다</h1>
-        <h5>가격: 3,000 원 / 개</h5>
-        <p>이 양초는 사실 특별한 힘을 가지고 있어요. 양초를 켜고 소원을 빌면 짜자잔 뭐든지 이뤄지게 된답니다. 하나 사가세요! 대나무 향이 아주 좋아요</p>
+        <h1>Jack-O'-Lantern</h1>
+        <h5>가격: 금화 1개 / 개</h5>
+        <p>곧 다가올 Halloween 맞이 특가 Sale!! 잭-오-랜턴으로 할로윈 느낌이 물씬 풍기게 꾸며보는건 어떠신가요?</p>
+        <span class="exchange-rate"></span>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">주문자 이름</span>
